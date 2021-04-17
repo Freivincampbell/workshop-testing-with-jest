@@ -1,27 +1,26 @@
 const axios = require('axios');
 
-const add = (num1, num2) => num1 + num2;
+function add(num1, num2) {
+	return num1 + num2;
+}
 
-function centuryFromYear(year) {}
+function centuryFromYear(year) {
+	return Math.ceil(year / 100);
+}
 
 const createUser = ({ name, lastName }) => {
-	return { name,lastName }
-};
-
-const reverseString = (string) => {
-	return string.split('').reverse().join('');
-};
-
-const checkValue = (value) => {
-	return value;
+	return {
+		name,
+		lastName
+	};
 };
 
 const fetchUser = async (userId) => {
-	const { data } = await axios.get(
+	const response = await axios.get(
 		'https://jsonplaceholder.typicode.com/users/' + userId
 	);
 
-	return data.name;
+	return response.data;
 };
 
 const fetchPost = async (postId) => {
@@ -32,6 +31,27 @@ const fetchPost = async (postId) => {
 	return response.data;
 };
 
+const reverseString = (string) => {
+	return string.split('').reverse().join('');
+};
+
+const checkValue = (value) => {
+	return value;
+};
+
+const isAnagram = (str1, str2) => {
+	if (formatStr(str1) === formatStr(str2)) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+// Private
+const formatStr = (str) => {
+	return str.replace(/[^\w]/g, '').toLowerCase().split('').sort().join('');
+};
+
 module.exports = {
 	add,
 	centuryFromYear,
@@ -39,5 +59,6 @@ module.exports = {
 	fetchUser,
 	fetchPost,
 	reverseString,
-	checkValue
+	checkValue,
+	isAnagram
 };
